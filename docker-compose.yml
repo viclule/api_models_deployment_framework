@@ -9,4 +9,4 @@ services:
     volumes:
       - ./src:/src
     command: >
-      sh -c "python api/app/manage.py runserver 0.0.0.0:8000"
+      sh -c "python api/manage.py runserver 0.0.0.0:8000"
