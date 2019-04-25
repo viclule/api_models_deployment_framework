@@ -4,3 +4,6 @@ psycopg2>=2.7.5,<2.8.0 # package to communicate django and postgres
 
 # pep8
 flake8>=3.6.0,<3.7.0
+
+# aws
+boto3>=1.9.135,<1.10.0
