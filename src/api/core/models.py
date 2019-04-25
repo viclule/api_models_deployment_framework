@@ -7,9 +7,20 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **kwargs):
         """Create and save a new user"""
-        user = self.model(email=email, **kwargs)
+        if not email:
+            raise ValueError('An email address must be provided')
+        user = self.model(email=self.normalize_email(email), **kwargs)
         user.set_password(password)
         user.save(using=self._db)
+
+        return user
+
+    def create_superuser(self, email, password):
+        """Create and save a new superuser"""
+        user = self.create_user(email, password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
 
         return user
 
