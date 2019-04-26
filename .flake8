@@ -10,3 +10,4 @@ exclude =
     *.md,
     *.txt,
     .vscode,
+    .ini,

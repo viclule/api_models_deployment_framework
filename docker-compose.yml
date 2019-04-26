@@ -13,10 +13,16 @@ services:
              python api/manage.py migrate &&
              python api/manage.py runserver 0.0.0.0:8000"
     environment:
-      - DB_HOST=db
-      - DB_NAME=app
+      # local instance
+      # - DB_HOST=db
+      # - DB_NAME=app
+      # - DB_USER=postgres
+      # - DB_PASS=somepassword
+      # AWS RDS Instance
+      - DB_HOST=postgresqlinstanceidentifier.c1604jszeu6w.eu-central-1.rds.amazonaws.com
+      - DB_NAME=PostgreSQLDBInstance_API_Models_Framework
       - DB_USER=postgres
-      - DB_PASS=somepassword
+      - DB_PASS=mypostgrespassword
     depends_on:
       - db
 
