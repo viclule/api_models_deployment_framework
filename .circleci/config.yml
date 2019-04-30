@@ -3,7 +3,7 @@ jobs:
   test_regression_model:
     working_directory: ~/src/models/regression_model
     docker:
-      image: circleci/python:3.7.2
+      - image: circleci/python:3.7.2
     steps:
       - checkout
       - run:
