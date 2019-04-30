@@ -1,0 +1,14 @@
+# production requirements
+numpy>=1.15.4,<1.16.0
+scikit-learn>=0.20.2,<0.21.0
+pandas>=0.23.4,<0.24.0
+
+# packaging
+setuptools=40.6.3
+wheel==0.32.3
+
+# testing requirements
+pytest>=4.0.2,<4.1.0
+
+# fetching datasets
+kaggle==1.5.1.1

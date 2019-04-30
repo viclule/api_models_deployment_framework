@@ -1,5 +1,6 @@
 Django>=2.2.0,<2.3.0
 djangorestframework>=3.8.2,<3.9.0
+djangorestframework-jwt>=1.11.0,<1.12.0
 psycopg2>=2.7.5,<2.8.0 # package to communicate django and postgres
 
 # pep8
