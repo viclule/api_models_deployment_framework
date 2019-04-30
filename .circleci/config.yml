@@ -7,15 +7,15 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Running tests
-        command: |
-          virtualenv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          chmod +x ./scripts/fetch_kaggle_dataset.sh
-          ./scripts/fetch_kaggle_dataset.sh
-          py.test -vv tests
+          name: Running tests
+          command: |
+            virtualenv venv
+            source venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+            chmod +x ./scripts/fetch_kaggle_dataset.sh
+            ./scripts/fetch_kaggle_dataset.sh
+            py.test -vv tests
 
 workflows:
   version: 2
