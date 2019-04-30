@@ -19,6 +19,6 @@ jobs:
 
 workflows:
   version: 2
-  test-all:s
+  test-all:
     jobs:
       - test_regression_model
