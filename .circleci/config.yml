@@ -1,7 +1,7 @@
 version: 2
 jobs:
   test_regression_model:
-    working_directory: ~/src/models/regression_model
+    working_directory: ~/project
     docker:
       - image: circleci/python:3.7.2
     steps:
@@ -12,7 +12,7 @@ jobs:
             virtualenv venv
             source venv/bin/activate
             pip install --upgrade pip
-            pip install -r requirements.txt
+            pip install -r src/models/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
             py.test -vv tests
