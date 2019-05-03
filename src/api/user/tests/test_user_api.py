@@ -137,3 +137,41 @@ class PrivateUserApiTests(TestCase):
         self.assertEqual(self.user.name, payload['name'])
         self.assertTrue(self.user.check_password(payload['password']))
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+
+class PrivateUserTokenApiTests(TestCase):
+    """Test API requests that require authentication, using a token"""
+
+    def setUp(self):
+        password = 'testpass'
+        self.user = create_user(
+            email='test@email',
+            password=password
+        )
+        self.client = APIClient()
+        # add token to headers
+        payload = {'email': self.user.email, 'password': password}
+        res = self.client.post(TOKEN_URL, payload)
+        token = res.data.get('token')
+        self.client.credentials(HTTP_AUTHORIZATION='JWT ' + token)
+
+    def test_retrieve_profile_success(self):
+        """Test retrieving profile from user"""
+        res = self.client.get(ME_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, {
+            'name': self.user.name,
+            'email': self.user.email
+        })
+
+    def test_update_user_profile(self):
+        """Test updating the user profile for authenticated user"""
+        payload = {'name': 'new name', 'password': 'newpassword'}
+
+        res = self.client.patch(ME_URL, payload)
+
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.name, payload['name'])
+        self.assertTrue(self.user.check_password(payload['password']))
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
