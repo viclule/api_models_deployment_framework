@@ -49,5 +49,5 @@ workflows:
     jobs:
       - train_and_test_regression_model
       - publish_regression_model:
-        requires:
-          - train_and_test_regression_model
+          requires:
+            - train_and_test_regression_model
