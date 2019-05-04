@@ -47,6 +47,25 @@ jobs:
             PYTHONPATH=src/models/regression_model python3 src/models/regression_model/regression_model/train_pipeline.py
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh src/models/regression_model
+  test_api:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - run:
+          name: Setup env
+          command: |
+            virtualenv venv
+            source venv/bin/activate
+            pip install --upgrade pip
+            pip install -r src/api/requirements.txt
+      - run:
+          name: Test the api
+          command: |
+            source venv/bin/activate
+            PYTHONPATH=src/api python3 src/api/manage.py test api
+            flake8 api
 workflows:
   version: 2
   test-and-publish-regression-model:
@@ -55,3 +74,6 @@ workflows:
       - publish_regression_model:
           requires:
             - train_and_test_regression_model
+  test-and-publish-api:
+    jobs:
+      - test_api
