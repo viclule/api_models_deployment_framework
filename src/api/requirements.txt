@@ -11,4 +11,4 @@ flake8>=3.6.0,<3.7.0
 
 
 # Install models from gemfury
-regression-model==1.0.0
+regression_model==1.0.0

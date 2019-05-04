@@ -4,6 +4,9 @@ aws_credentials.csv
 # ignore large files with data
 *.csv
 
+# ignore saved models
+*.pkl
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

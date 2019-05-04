@@ -1,13 +1,13 @@
 version: 2
 jobs:
-  test_regression_model:
+  train_and_test_regression_model:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.7.2
     steps:
       - checkout
       - run:
-          name: Runnning tests
+          name: Setup env
           command: |
             virtualenv venv
             source venv/bin/activate
@@ -15,31 +15,39 @@ jobs:
             pip install -r src/models/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
+      - run:
+          name: Train the model
+          command: |
+            PYTHONPATH=src/models/regression_model python3 src/models/regression_model/regression_model/train_pipeline.py
+      - run:
+          name: Test the model
+          command: |
             py.test -vv src/models/regression_model/tests
-
-  train_and_upload_regression_model:
+  publish_regression_model:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.7.2
     steps:
       - checkout
-      - run: 
+      - run:
           name: Setup env
           command: |
             virtualenv venv
             source venv/bin/activate
+            pip install --upgrade pip
             pip install -r src/models/regression_model/requirements.txt
-      - run: 
-          name: Publish model
-          command: |
-            source venv/bin/activate
-            chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
+            chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
+      - run:
+          name: Train aund publish the model
+          command: |
             PYTHONPATH=src/models/regression_model python3 src/models/regression_model/regression_model/train_pipeline.py
             ./scripts/publish_model.sh src/models/regression_model
 workflows:
   version: 2
-  test-all:
+  test-and-publish-regression-model:
     jobs:
-      - test_regression_model
-      - train_and_upload_regression_model
+      - train_and_test_regression_model
+      - publish_regression_model:
+        requires:
+          - train_and_test_regression_model
