@@ -18,10 +18,12 @@ jobs:
       - run:
           name: Train the model
           command: |
+            source venv/bin/activate
             PYTHONPATH=src/models/regression_model python3 src/models/regression_model/regression_model/train_pipeline.py
       - run:
           name: Test the model
           command: |
+            source venv/bin/activate
             py.test -vv src/models/regression_model/tests
   publish_regression_model:
     working_directory: ~/project
@@ -41,6 +43,7 @@ jobs:
       - run:
           name: Train aund publish the model
           command: |
+            source venv/bin/activate
             PYTHONPATH=src/models/regression_model python3 src/models/regression_model/regression_model/train_pipeline.py
             ./scripts/publish_model.sh src/models/regression_model
 workflows:
