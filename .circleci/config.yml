@@ -41,10 +41,11 @@ jobs:
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
       - run:
-          name: Train aund publish the model
+          name: Train and publish the model
           command: |
             source venv/bin/activate
             PYTHONPATH=src/models/regression_model python3 src/models/regression_model/regression_model/train_pipeline.py
+            chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh src/models/regression_model
 workflows:
   version: 2
