@@ -1,5 +1,4 @@
 import base64
-import datetime
 import requests
 import json
 import pandas as pd
@@ -13,7 +12,7 @@ class Download:
     """
 
     def __init__(self, user, password,
-                url='http://leybold.cumulocity.com/measurement/measurements'):
+                 url='http://leybold.cumulocity.com/measurement/measurements'):
         """
         Initialization function.
             :param self: self
@@ -41,15 +40,15 @@ class Download:
         Return a dicitonary with the header information.
             :param self: self
             :param authorization: authorization string in base64
-        """  
+        """
         return {'Authorization': authorization}
 
     def _payload(self, date_to=None, date_from=None, source=None, type_=None):
         """
         Return the payload for measurements filtering.
             :param self: self
-            :param date_to=None: date finishing at in the format YYYY-MM-DD 
-            :param date_from=None: date starting from in the format YYYY-MM-DD 
+            :param date_to=None: date finishing at in the format YYYY-MM-DD
+            :param date_from=None: date starting from in the format YYYY-MM-DD
             :param source=None: source ID
             :param type_=None: name of the measurement
         """
@@ -69,8 +68,8 @@ class Download:
         """
         Download values from cumulocity.com.
             :param self: self
-            :param date_to=None: date finishing at in the format YYYY-MM-DD 
-            :param date_from=None: date starting from in the format YYYY-MM-DD 
+            :param date_to=None: date finishing at in the format YYYY-MM-DD
+            :param date_from=None: date starting from in the format YYYY-MM-DD
             :param source=None: source ID
             :param type_=None: name of the measurement
             :param to_datetime=True: convert to datetime
@@ -83,7 +82,8 @@ class Download:
         payload_ = self._payload(date_to, date_from, source, type_)
         while temp_do or ('next' in json_data):
             if temp_do:
-                r = requests.get(self.download_path, headers=self.authorization,
+                r = requests.get(self.download_path,
+                                 headers=self.authorization,
                                  params=payload_)
             else:
                 r = requests.get(json_data['next'], headers=self.authorization)

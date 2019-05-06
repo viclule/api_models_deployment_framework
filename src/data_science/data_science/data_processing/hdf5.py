@@ -13,10 +13,10 @@ from data_science.data_transfer.data_api import Dataset
 class HDF5Dataset:
 
     def __init__(self, file_name, file_path, dataset_id,
-        random_string_in_name=10):
+                 random_string_in_name=10):
         """
         Initialization.
-            :param self: 
+            :param self:
             :param file_name: name for the file. No ending necessary
             :param file_path: location path
             :param dataset_id: dataset's id
@@ -33,7 +33,7 @@ class HDF5Dataset:
     def dataset_id(self):
         # do something
         return self._dataset_id
-    
+
     @dataset_id.setter
     def dataset_id(self, value):
         self._dataset_id = value
@@ -44,7 +44,7 @@ class HDF5Dataset:
             :param self: self
         """
         self.file_name = self.file_name + '-' + \
-                _generate_random_string(l=self.random_string_in_name) + '.h5'
+            _generate_random_string(l=self.random_string_in_name) + '.h5'
         self.file_w_path = os.path.join(self.file_path, self.file_name)
         try:
             f = h5py.File(self.file_w_path, 'a')
@@ -71,8 +71,8 @@ class HDF5Dataset:
         columns = list(dataset.dump_attributes_to_dictionary().keys())
         df = pd.DataFrame(columns=columns)
         df.loc[0] = dataset.dump_attributes_to_dictionary()
-        ##### insert to the file
-        df.to_hdf(self.file_w_path, key='meta/' +  self._dataset_id, mode='a')
+        # insert to the file
+        df.to_hdf(self.file_w_path, key='meta/' + self._dataset_id, mode='a')
 
     def add_dataset_data_df_to_h5(self, df):
         """
@@ -85,9 +85,9 @@ class HDF5Dataset:
         # insert the columns names as df to the metadata
         df_col = pd.DataFrame(columns=['columns'])
         df_col['columns'] = list(df.columns.values)
-        ##### insert to the file
+        # insert to the file
         df_col.to_hdf(self.file_w_path,
-                      key='meta/columns/' +  self._dataset_id,
+                      key='meta/columns/' + self._dataset_id,
                       mode='a')
 
     def remove_dataset_from_h5(self):
@@ -132,7 +132,7 @@ class HDF5Dataset:
         """
         try:
             df = pd.read_hdf(self.file_w_path,
-                            'meta/columns/' + self._dataset_id, 'r')
+                             'meta/columns/' + self._dataset_id, 'r')
             return df
         except KeyError as e:
             print(e)
@@ -142,7 +142,7 @@ class HDF5Dataset:
         Get a list with the dataset_id's stored in the file.
             :param self: self
             :param option='data': Read the keys from the 'data', 'meta' or
-            'meta/columns/' group. 
+            'meta/columns/' group.
         """
         keys = None
         try:
@@ -163,7 +163,7 @@ def generate_hd5f_from_df(df, file_name, file_path, datasets=[],
                           random_string_in_name=10):
     """
     Generates an hdf5 file from a DataFrame.
-            :param self: 
+            :param self:
             :param file_name: name for the file. No ending necessary
             :param file_path: location path
             :param datasets: array with the dataset ids used to build the df
@@ -171,7 +171,7 @@ def generate_hd5f_from_df(df, file_name, file_path, datasets=[],
                                             the name
     """
     file_name = file_name + '-' + \
-                _generate_random_string(l=random_string_in_name) + '.h5'
+        _generate_random_string(l=random_string_in_name) + '.h5'
     file_w_path = os.path.join(file_path, file_name)
     try:
         with h5py.File(file_w_path, 'a') as f:
@@ -187,10 +187,9 @@ def generate_hd5f_from_df(df, file_name, file_path, datasets=[],
     # Insert the metadata and the array
     with h5py.File(file_w_path, 'a') as f:
         f['base_group/metadata'][()] = json.dumps(metadata)
-        _ = f.create_dataset('base_group/data',
-                                data=df.reset_index().values)
+        _ = f.create_dataset('base_group/data', data=df.reset_index().values)
     return file_name
-        
+
 
 def generate_df_from_hdf5(file_name):
     """

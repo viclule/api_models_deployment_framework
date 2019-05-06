@@ -6,7 +6,6 @@ import math
 
 from data_science.tools.objects import attr_in_object, \
     assign_attr_from_dictionary
-from data_science.tools.classes import InstanceTraceable
 import data_science.tools.transformations as tr
 
 
@@ -31,7 +30,7 @@ class APIBaseClass:
             error_message = f'API did not return {expected_status_code}. \
                               Status code: {request.status_code}.'
             if request.status_code == 403:
-                raise Exception(error_message + \
+                raise Exception(error_message +
                                 f"Message: {json_data['error']['code']}")
             raise Exception(error_message)
         if field_to_fetch is None:
@@ -53,7 +52,7 @@ class APIBaseClass:
     def _assign_attributes(self, json_data):
         """
         Read data from a json object.
-            :param self: 
+            :param self:
             :param json_data: a json object
         """
         for key, value in json_data.items():
@@ -96,7 +95,7 @@ class APIBaseClass:
     def download_attributes(self):
         """
         Collect the information from the Data_API.
-            :param self: 
+            :param self:
         """
         class_name = type(self).__name__.lower()
         if self.id is None:
@@ -243,12 +242,12 @@ class Dataseries(APIBaseClass):
         number_of_batches = math.ceil(length / self.MEASUREMENTS_PER_POST)
         for batch in range(number_of_batches):
             measurements = measurements_df[
-                            (batch)*self.MEASUREMENTS_PER_POST: \
+                            (batch)*self.MEASUREMENTS_PER_POST:
                             (batch + 1)*self.MEASUREMENTS_PER_POST]
             self._upload_batch_measurents_df(measurements)
-    
+
     def _get_measurements(self, path=None, from_time=None,
-                         to_time=None):
+                          to_time=None):
         """
         Download measurements from the data_api.
             :param self: self
@@ -300,7 +299,7 @@ class Dataseries(APIBaseClass):
     def _find_next(self, links):
         """
         Find the next link in the json object.
-            :param self: 
+            :param self:
             :param links: links
         """
         found = False
@@ -321,14 +320,15 @@ class Dataset(APIBaseClass):
     """
     _subpath = '/datasets/'
 
-    def __init__(self, data_api, id_=None, name=None, pump_model=None, kind=None,
-                 serial_number=None, other_identifier=None, catalog_number=None,
-                 test_result=None, test_result_comment=None, timestamp=None,
+    def __init__(self, data_api, id_=None, name=None, pump_model=None,
+                 kind=None, serial_number=None, other_identifier=None,
+                 catalog_number=None, test_result=None,
+                 test_result_comment=None, timestamp=None,
                  user=None, number_of_dataseries=None, description=None,):
         """
         Initialization function.
             :param self: self
-            :param name=None: name for the dataset 
+            :param name=None: name for the dataset
             :param pump_model=None: pump model
             :param kind=None: kind of dataset
             :param description=None: description
@@ -363,10 +363,12 @@ class Dataset(APIBaseClass):
         self.number_of_dataseries = number_of_dataseries
         self.dataseries_ids = {}
         self.links = {}
-        self._attr_to_dictionary = ['name', 'pump_model', 'kind', 'description',
-                                    'serial_number', 'other_identifier',
+        self._attr_to_dictionary = ['name', 'pump_model', 'kind',
+                                    'description',
+                                    'serial_number',
+                                    'other_identifier',
                                     'catalog_number']
-    
+
     def _verify_attr_completness(self, verify_id=True):
         """
         Verify that all required fields are provided.
@@ -390,7 +392,7 @@ class Dataset(APIBaseClass):
     def download_attributes(self):
         """
         Collect the dataset information in the Data_API.
-            :param self: 
+            :param self:
         """
         super().download_attributes()
         # collect the related datseries
@@ -402,7 +404,7 @@ class Dataset(APIBaseClass):
             :param self: self
         """
         path = self.data_api.api_url + __class__._subpath + self.id + \
-                '/dataseries/'
+            '/dataseries/'
         r = requests.get(path, headers=self.data_api.auth_header)
         json_data = self._fetch_json_from_url(r, 200)
         # extract the dataseries data from the respond
@@ -427,13 +429,13 @@ class Dataset(APIBaseClass):
         # display a progress bar
         f = FloatProgress(min=0, max=len(self.dataseries_ids))
         if running_in_notebook:
-            display(f)
+            # display(f)
+            pass
         for _, id_ in self.dataseries_ids.items():
             ds = Dataseries(self, id_=id_)
             ds.download_attributes()
             df_temp = ds.get_measurements_df(from_time=from_time,
-                                to_time=to_time,
-                                timestamp_to_datetime=timestamp_to_datetime)
+                to_time=to_time, timestamp_to_datetime=timestamp_to_datetime)
             # verify the size of the dataframe and resize dt if necessary
             if df_temp.shape[0] > df.shape[0]:
                 diff = df_temp.shape[0] - df.shape[0]
@@ -454,7 +456,7 @@ class Dataset(APIBaseClass):
             if not running_in_notebook:
                 print(f.value, ' of ', f.max)
         return df
-    
+
     def dump_attributes_to_dictionary(self):
         # ToDo: Probably add some more attributes
         return self._generate_attr_to_dictionary()
@@ -485,8 +487,8 @@ class DataApi(APIBaseClass):
         Return a dictionary to generate a token.
             :param self: self
         """
-        return {'user_id' : self.user,
-                'user_secret' : self.password}
+        return {'user_id': self.user,
+                'user_secret': self.password}
 
     def _headers(self):
         """

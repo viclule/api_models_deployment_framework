@@ -11,7 +11,7 @@ def remove_row(df, row, reindex=True, ignore_error=True):
     index_name = df.index.name
     try:
         df.drop([row], inplace=True)
-    except:
+    except KeyError:
         if ignore_error:
             pass
         else:
@@ -27,7 +27,7 @@ def remove_row(df, row, reindex=True, ignore_error=True):
 def drop_column(df, column, ignore_error=True):
     try:
         df.drop([column], inplace=True, axis=1)
-    except:
+    except KeyError:
         if ignore_error:
             pass
         else:
@@ -69,8 +69,8 @@ def read_from_csv(file_path, to_datetime=True, index_column_name='index',
         try:
             if type(x) is str:
                 x = string_to_datetime(x, str_format=time_format)
-        except:
-            pass
+        except Exception as e:
+            print(e.args)
         return x
 
     df = pd.read_csv(file_path, sep=';', index_col=[0])
