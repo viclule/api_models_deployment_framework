@@ -1,5 +1,6 @@
 import unittest
-
+#import sys, os
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from data_science.tools.transformations import per_hour_to_per_second
 #from ...tools.transformations import per_hour_to_per_second
 

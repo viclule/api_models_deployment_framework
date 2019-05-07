@@ -17,8 +17,9 @@ jobs:
           name: Test the module
           command: |
             source venv/bin/activate
-            python3 src/data_science/tests/tests.py
-            flake8 src/data_science
+            cd src/data_science
+            python3 -m unittest tests.tests
+            flake8
   publish_data_science_module:
     working_directory: ~/project
     docker:
