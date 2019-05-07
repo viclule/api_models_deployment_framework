@@ -3,7 +3,7 @@ from sklearn.externals import joblib
 from sklearn.pipeline import Pipeline
 
 from regression_model.config import config
-from regression_model import __version__ as _version
+from  regression_model import __version__ as _version
 
 import logging
 import typing as t

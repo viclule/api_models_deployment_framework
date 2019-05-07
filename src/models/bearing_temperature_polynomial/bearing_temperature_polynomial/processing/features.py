@@ -1,7 +1,8 @@
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from processing.errors import InvalidModelInputError
+from bearing_temperature_polynomial.processing.errors import \
+    InvalidModelInputError
 
 
 class LogTransformer(BaseEstimator, TransformerMixin):
