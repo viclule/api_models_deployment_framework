@@ -7,13 +7,11 @@ def iso_to_datetime(isotime):
         :param isotime: isotime
     """
     if len(isotime) == 24:
-        time = datetime.datetime.strptime(
-                    isotime.replace('Z', ''),
-                    '%Y-%m-%dT%H:%M:%S.%f')
+        time = datetime.datetime.strptime(isotime.replace('Z', ''),
+                                          '%Y-%m-%dT%H:%M:%S.%f')
     elif len(isotime) == 20:
-        time = datetime.datetime.strptime(
-                    isotime.replace('Z', ''),
-                    '%Y-%m-%dT%H:%M:%S')
+        time = datetime.datetime.strptime(isotime.replace('Z', ''),
+                                          '%Y-%m-%dT%H:%M:%S')
     else:
         raise ValueError('The provided string has a wrong format.')
     return time

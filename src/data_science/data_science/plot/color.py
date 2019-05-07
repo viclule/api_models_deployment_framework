@@ -1,10 +1,8 @@
-# Generates colors in a sequenced manner
+"""
+Generates colors in a sequenced manner.
+"""
 
-import math
-import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas
 from cycler import cycler
 import warnings
 
@@ -31,7 +29,7 @@ class _Brewer(object):
 
     colors = ['#f7fbff', '#deebf7', '#c6dbef',
               '#9ecae1', '#6baed6', '#4292c6',
-              '#2171b5','#08519c','#08306b'][::-1]
+              '#2171b5', '#08519c', '#08306b'][::-1]
 
     # lists that indicate which colors to use depending on how many are used
     which_colors = [[],
@@ -68,7 +66,7 @@ class _Brewer(object):
         """Initializes the color iterator with the given number of colors."""
         cls.color_iter = cls.ColorGenerator(num)
         fig = plt.gcf()
-        cls.current_figure = fig  
+        cls.current_figure = fig
 
     @classmethod
     def ClearIter(cls):
@@ -82,7 +80,7 @@ class _Brewer(object):
         fig = plt.gcf()
         if fig != cls.current_figure:
             cls.InitIter(num)
-            cls.current_figure = fig  
+            cls.current_figure = fig
 
         if cls.color_iter is None:
             cls.InitIter(num)

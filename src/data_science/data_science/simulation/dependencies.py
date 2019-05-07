@@ -67,7 +67,7 @@ class PolynomialDependency(Dependency):
     def run(self, first_value, second_value, third_value=0):
         """Dependancy of the form: y = a + b*x + c*x^2 + d*x^3"""
         value = self.a + second_value * self.b + second_value**2 * self.c + \
-                + second_value**3 * self.d
+            + second_value**3 * self.d
         return value
 
 
@@ -89,8 +89,8 @@ class FirstOrderDependancy(Dependency):
 
     def run(self, first_value, second_value, third_value=0):
         """Dependancy of the form: y = a + (b - a)*(1 - e^(-(x - d) / c)"""
-        value = self.a + (self.b - self.a)*(1 - \
-                math.exp(-(second_value - self.d) / self.c))
+        value = self.a + (self.b - self.a) * \
+            (1 - math.exp(-(second_value - self.d) / self.c))
         return value
 
 

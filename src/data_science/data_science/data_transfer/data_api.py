@@ -30,8 +30,8 @@ class APIBaseClass:
             error_message = f'API did not return {expected_status_code}. \
                               Status code: {request.status_code}.'
             if request.status_code == 403:
-                raise Exception(error_message +
-                                f"Message: {json_data['error']['code']}")
+                raise Exception(
+                    error_message + f"Message: {json_data['error']['code']}")
             raise Exception(error_message)
         if field_to_fetch is None:
             return json_data
@@ -77,8 +77,8 @@ class APIBaseClass:
         json_data = self._fetch_json_from_url(r, 201)
         self._assign_attributes(json_data[class_name])
         if self.id is None:
-            raise Exception('A ' + class_name +
-                            ' id was not successfully generated')
+            raise Exception(
+                'A ' + class_name + ' id was not successfully generated')
         return self
 
     def upload_attributes(self):
@@ -242,8 +242,8 @@ class Dataseries(APIBaseClass):
         number_of_batches = math.ceil(length / self.MEASUREMENTS_PER_POST)
         for batch in range(number_of_batches):
             measurements = measurements_df[
-                            (batch)*self.MEASUREMENTS_PER_POST:
-                            (batch + 1)*self.MEASUREMENTS_PER_POST]
+                (batch) * self.MEASUREMENTS_PER_POST:
+                (batch + 1) * self.MEASUREMENTS_PER_POST]
             self._upload_batch_measurents_df(measurements)
 
     def _get_measurements(self, path=None, from_time=None,
@@ -259,7 +259,7 @@ class Dataseries(APIBaseClass):
             raise ValueError('A dataset id has to be provided.')
         if path is None:
             path = self.data_api.api_url + __class__._subpath + self.id + \
-                    '/measurements'
+                '/measurements'
         else:
             path = self.data_api.api_url + path
         r = requests.get(path, headers=self.data_api.auth_header)
@@ -292,7 +292,7 @@ class Dataseries(APIBaseClass):
             for measurement in measurements:
                 if timestamp_to_datetime:
                     measurement['timestamp'] = \
-                                tr.iso_to_datetime(measurement['timestamp'])
+                        tr.iso_to_datetime(measurement['timestamp'])
                 df.loc[len(df)] = measurement
         return df
 
@@ -434,7 +434,8 @@ class Dataset(APIBaseClass):
         for _, id_ in self.dataseries_ids.items():
             ds = Dataseries(self, id_=id_)
             ds.download_attributes()
-            df_temp = ds.get_measurements_df(from_time=from_time,
+            df_temp = ds.get_measurements_df(
+                from_time=from_time,
                 to_time=to_time, timestamp_to_datetime=timestamp_to_datetime)
             # verify the size of the dataframe and resize dt if necessary
             if df_temp.shape[0] > df.shape[0]:

@@ -1,10 +1,7 @@
 """Parameter to build devices."""
 from collections import deque
-import weakref
-import itertools
 
 from data_science.tools.classes import InstanceTraceable
-import data_science.tools.transformations as transf
 from data_science.tools.time import get_timestamp_unix
 
 

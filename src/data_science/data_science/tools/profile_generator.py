@@ -1,4 +1,6 @@
-"""Generates profiles."""
+"""
+Generates profiles.
+"""
 
 
 class Profiles:
@@ -8,16 +10,16 @@ class Profiles:
     def screw_profile_generator(rev_second, samples_second, up_percentage,
                                 up_level, down_level, seconds=1):
         """Generate a screw profile.
-        
+
         Keyword arguments:
         rev_seconds --
         samples_second --
         up_percentage -- percentage of the rotor profile near to the housing.
                         One revolution looking like this.
 
-                        _up_        
+                        _up_
 
-                            _down___ 
+                            _down_
         up_level -- for example 9 V
         down_level -- for example 1 V
         seconds -- how many seconds of data to generate
@@ -34,10 +36,9 @@ class Profiles:
                     ((1.0 - up_percentage) * samples_second) / rev_second:
                 data.append(down_level)
                 counter_down = counter_down + 1
-                
             if counter_up >= (up_percentage * samples_second) / rev_second \
                     and counter_down >= \
-                        (1.0 - up_percentage) * samples_second / rev_second:
+                    (1.0 - up_percentage) * samples_second / rev_second:
                 counter_up = 0
                 counter_down = 0
             i = i + 1
@@ -46,7 +47,7 @@ class Profiles:
     @staticmethod
     def linear_ramp_generator(start, end, samples_second, seconds=1):
         """Generate a linear profile..
-        
+
         Keyword arguments:
         samples_second --
         start -- starting value

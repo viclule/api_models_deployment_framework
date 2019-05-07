@@ -1,5 +1,4 @@
 """Tools to communicate with NI Devices."""
-
 from settings import PLATFORM, WINDOWS
 
 
@@ -7,8 +6,6 @@ if PLATFORM == WINDOWS:
     from data_science.in_out.channels import ChannelTypes as CT
     import nidaqmx
     import sys
-    import decimal
-
 
     class NIDevices:
         """A communication interface with NI devices."""
@@ -45,7 +42,8 @@ if PLATFORM == WINDOWS:
                                                     samps_per_chan=no_samples)
                     task.timing.samp_timing_type = \
                         nidaqmx.constants.SampleTimingType.SAMPLE_CLOCK
-                    values = task.read(number_of_samples_per_channel=no_samples)
+                    values = task.read(
+                        number_of_samples_per_channel=no_samples)
                     return sum(values) / float(len(values))
             else:
                 return 'Channel can not be added.'
@@ -78,14 +76,18 @@ if PLATFORM == WINDOWS:
                 with nidaqmx.Task() as task:
                     if not output:
                         if channel_type == CT.VOLTAGE:
-                            task.ai_channels.add_ai_voltage_chan(physical_channel)
+                            task.ai_channels.add_ai_voltage_chan(
+                                physical_channel)
                         elif channel_type == CT.CURRENT:
-                            task.ai_channels.add_ai_current_chan(physical_channel)
+                            task.ai_channels.add_ai_current_chan(
+                                physical_channel)
                     else:
                         if channel_type == CT.VOLTAGE:
-                            task.ao_channels.add_ao_voltage_chan(physical_channel)
+                            task.ao_channels.add_ao_voltage_chan(
+                                physical_channel)
                         elif channel_type == CT.CURRENT:
-                            task.ao_channels.add_ao_current_chan(physical_channel)
+                            task.ao_channels.add_ao_current_chan(
+                                physical_channel)
                 return True
             except Exception as ex:
                 exc_type, exc_value, exc_traceback = sys.exc_info()

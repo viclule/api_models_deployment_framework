@@ -238,7 +238,7 @@ def optimal_bins_number(lst):
     if isinstance(lst, list):
         lst = pd.Series(lst)
 
-    bin_width = 2 * iqr(lst) * pow(len(lst), -1/3)
+    bin_width = 2 * iqr(lst) * pow(len(lst), - 1 / 3)
     return int((lst.max() - lst.min()) / bin_width)
 
 
@@ -262,11 +262,8 @@ def histogram(df, parameters, bins=None, start=0, end=1, regularize=False,
     if regularize:
         for parameter in parameters:
             df[parameter] = df[parameter].apply(
-                    lambda x: range_to_range_linear(x,
-                                                    df[parameter].min(),
-                                                    df[parameter].max(),
-                                                    0,
-                                                    100))
+                lambda x: range_to_range_linear(x, df[parameter].min(),
+                                                df[parameter].max(), 0, 100))
 
     # section of the data to plot
     start = int(df.shape[0] * start)
@@ -277,7 +274,7 @@ def histogram(df, parameters, bins=None, start=0, end=1, regularize=False,
         bins = []
         for parameter in parameters:
             bins.append(optimal_bins_number(df[parameter][start:end]))
-        bins = int(sum(bins)/len(bins))
+        bins = int(sum(bins) / len(bins))
 
     # figure size and plot
     fig = plt.figure(figsize=fig_size)

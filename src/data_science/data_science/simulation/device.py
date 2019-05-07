@@ -1,5 +1,3 @@
-from collections import deque
-
 from data_science.simulation.parameter import Parameter
 from data_science.simulation.dependencies import Dependency
 from data_science.tools.threading_utilities import ThreadableClass

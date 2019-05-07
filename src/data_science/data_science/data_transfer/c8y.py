@@ -102,7 +102,7 @@ class Download:
 
                 if to_datetime:
                     temp_dict['timestamp'] = \
-                                    tr.iso_to_datetime(measurement['time'])
+                        tr.iso_to_datetime(measurement['time'])
                 else:
                     if remove_ms:
                         temp_dict['timestamp'] = measurement['time'][:-5] + 'Z'

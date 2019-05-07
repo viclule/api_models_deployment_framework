@@ -100,8 +100,9 @@ def TFKMeansCluster(vectors, noofclusters, iterations=100):
         average_distance = []
 
         # display a progress bar
-        f = FloatProgress(min=0, max=iterations) # instantiate the bar
-        display(f) # display the bar
+        f = FloatProgress(min=0, max=iterations)  # instantiate the bar
+        # display(f)  # display the bar
+
         noofiterations = iterations
         for _ in range(noofiterations):
 
@@ -118,7 +119,7 @@ def TFKMeansCluster(vectors, noofclusters, iterations=100):
                 # cluster assignment node.
                 distances = [sess.run(euclid_dist, feed_dict={
                     v1: vect, v2: sess.run(centroid)})
-                             for centroid in centroids]
+                    for centroid in centroids]
 
                 # calculate the minimal distance, that is the distance to
                 # its new cluster center
@@ -132,7 +133,7 @@ def TFKMeansCluster(vectors, noofclusters, iterations=100):
                 # Now assign the value to the appropriate state variable
                 sess.run(cluster_assigns[vector_n], feed_dict={
                     assignment_value: assignment})
-            average_distance.append(sum_distances/len(vectors))
+            average_distance.append(sum_distances / len(vectors))
             # MAXIMIZATION STEP
             # Based on the expected state computed from the Expectation Step,
             # compute the locations of the centroids so as to maximize the
@@ -200,7 +201,7 @@ def TFKMeansCluster_Predict(vectors, centroids_):
         # based on Euclidean distances of the vector from the centroids.
         # Placeholder for input
         centroid_distances = tf.placeholder("float", [noofclusters])
-        cluster_assignment = tf.argmin(centroid_distances, 0)  
+        cluster_assignment = tf.argmin(centroid_distances, 0)
 
         init_op = tf.initialize_all_variables()
 
@@ -210,8 +211,8 @@ def TFKMeansCluster_Predict(vectors, centroids_):
         [sess.run(centroid) for centroid in centroids]
 
         # display a progress bar
-        f = FloatProgress(min=0, max=len(vectors)) # instantiate the bar
-        display(f)  # display the bar
+        f = FloatProgress(min=0, max=len(vectors))  # instantiate the bar
+        # display(f)  # display the bar
 
         for i, vect in enumerate(vectors):
             # vect = vectors[vector_n]
@@ -220,8 +221,7 @@ def TFKMeansCluster_Predict(vectors, centroids_):
             # 'centroid_distances', since that is the input to the
             # cluster assignment node.
             distances = [sess.run(euclid_dist, feed_dict={
-                        v1: vect, v2: sess.run(centroid)})
-                        for centroid in centroids]
+                v1: vect, v2: sess.run(centroid)}) for centroid in centroids]
 
             # Now use the cluster assignment node, with the distances
             # as the input

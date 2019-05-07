@@ -5,16 +5,16 @@ import pandas as pd
 
 def _pump_data():
     return [
-            'pump_model',
-            'serial_number',
-            'name',
-            'kind',             # development, long_test, customer, etc...
-            'catalog_number',
-            'c8y_id_1',         # device ID for this pump
-            'c8y_id_2',         # each pump can have more than one
-            'c8y_id_3',
-            'c8y_id_4',
-            ]
+        'pump_model',
+        'serial_number',
+        'name',
+        'kind',             # development, long_test, customer, etc...
+        'catalog_number',
+        'c8y_id_1',         # device ID for this pump
+        'c8y_id_2',         # each pump can have more than one
+        'c8y_id_3',
+        'c8y_id_4',
+        ]
 
 
 def pumps_data_empty_dataframe():
@@ -29,14 +29,14 @@ def pumps_data_empty_dataframe():
 
 def _datasets_data():
     return [
-            'id',               # id of the dataset
-            'timestamp',        # Time it was added
-            'pump_number',      # assigned number for the pump
-            'period',           # name of the period
-            'period_start',     # in the format YYYYMM
-            'period_end',       # in the format YYYYMM
-            'comment',          # comment to this dataset
-            ]
+        'id',               # id of the dataset
+        'timestamp',        # Time it was added
+        'pump_number',      # assigned number for the pump
+        'period',           # name of the period
+        'period_start',     # in the format YYYYMM
+        'period_end',       # in the format YYYYMM
+        'comment',          # comment to this dataset
+        ]
 
 
 def datasets_data_empty_dataframe():
@@ -51,15 +51,15 @@ def datasets_data_empty_dataframe():
 
 def _dataseries_content():
     return [
-            'c8y_type',         # Type in c8y
-            'c8y_id',           # device ID on which to find it (1, 2, 3 or 4).
-                                # see pump_data
-            'pump_location',
-            'name',
-            'kind',
-            'units',
-            'precision',
-            ]
+        'c8y_type',         # Type in c8y
+        'c8y_id',           # device ID on which to find it (1, 2, 3 or 4).
+                            # see pump_data
+        'pump_location',
+        'name',
+        'kind',
+        'units',
+        'precision',
+        ]
 
 
 def dataseries_data_empty_dataframe():
