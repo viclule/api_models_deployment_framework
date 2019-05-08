@@ -1,10 +1,10 @@
 """Tools to communicate with Widgetlords Devices."""
-
-from settings import PLATFORM, LINUX
+from platform import PLATFORM, LINUX
 
 
 if PLATFORM == LINUX:
     import widgetlords.pi_spi_din as wl
+
 
     class WidgetLords():
 

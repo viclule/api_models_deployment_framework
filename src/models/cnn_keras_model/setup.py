@@ -9,11 +9,11 @@ from setuptools import find_packages, setup
 
 
 # Package meta-data.
-NAME = 'regression_model'
-DESCRIPTION = 'Train and deploy regression model.'
-URL = 'github.com'
-EMAIL = 'your_email@email.com'
-AUTHOR = 'Your name'
+NAME = 'neural_network_model'
+DESCRIPTION = 'Train and deploy of a sample cnn keras model.'
+URL = 'https://github.com/viclule/api_models_deployment_framework.git'
+EMAIL = 'vic.lule@googlemail.com'
+AUTHOR = 'Vicente Guerrero'
 REQUIRES_PYTHON = '>=3.6.0'
 
 
@@ -61,7 +61,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
-    package_data={'regression_model': ['VERSION']},
+    package_data={'neural_network_model': ['VERSION']},
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,

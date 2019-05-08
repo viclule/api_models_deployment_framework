@@ -1,11 +1,12 @@
 """Tools to communicate with NI Devices."""
-from settings import PLATFORM, WINDOWS
+from platform import PLATFORM, WINDOWS
 
 
 if PLATFORM == WINDOWS:
     from data_science.in_out.channels import ChannelTypes as CT
     import nidaqmx
     import sys
+
 
     class NIDevices:
         """A communication interface with NI devices."""
@@ -115,6 +116,7 @@ if PLATFORM == WINDOWS:
 
         def physical_channel(self, module, channel):
             return module + '/' + channel
+
 
     class NIChannel:
         """A representation of an analog input channel."""

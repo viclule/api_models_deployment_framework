@@ -11,9 +11,8 @@ from setuptools import find_packages, setup
 # Package meta-data.
 NAME = 'data_science'
 DESCRIPTION = 'Utility code for the development of data science projects.'
-URL = 'https://leybold-gmbh.codebasehq.com/data-driven-projects-tools' + \
-      '-development/data_science.git'
-EMAIL = 'vicente.guerrero@leybold.com'
+URL = 'https://github.com/viclule/api_models_deployment_framework.git'
+EMAIL = 'vic.lule@googlemail.com'
 AUTHOR = 'Vicente Guerrero'
 REQUIRES_PYTHON = '>=3.6.0'
 
