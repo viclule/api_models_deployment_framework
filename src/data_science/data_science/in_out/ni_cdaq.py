@@ -7,7 +7,6 @@ if PLATFORM == WINDOWS:
     import nidaqmx
     import sys
 
-
     class NIDevices:
         """A communication interface with NI devices."""
 
@@ -116,7 +115,6 @@ if PLATFORM == WINDOWS:
 
         def physical_channel(self, module, channel):
             return module + '/' + channel
-
 
     class NIChannel:
         """A representation of an analog input channel."""

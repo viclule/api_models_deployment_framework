@@ -5,7 +5,6 @@ from platform import PLATFORM, LINUX
 if PLATFORM == LINUX:
     import widgetlords.pi_spi_din as wl
 
-
     class WidgetLords():
 
         def __init__(self):
